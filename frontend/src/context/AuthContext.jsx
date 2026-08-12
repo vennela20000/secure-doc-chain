@@ -1,16 +1,58 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
+import { fetchCurrentUser } from '../api/authApi';
 
-// Holds the logged-in user's info (or null) and the functions to
-// log in / log out, available to any component in the tree via useAuth().
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  // Starts as null - Frontend Phase 2 will hydrate this from a
-  // stored token on app load, and set it properly on login.
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem('token'));
+  // Tracks whether we're still checking for an existing session on app load,
+  // so ProtectedRoute doesn't redirect to /login for a split second
+  // before we've had a chance to check localStorage.
+  const [loading, setLoading] = useState(true);
 
-  const value = { user, setUser, token, setToken };
+  // On first app load, if a token already exists in localStorage
+  // (user refreshed the page, or came back later), verify it's
+  // still valid and re-fetch their user info.
+  useEffect(() => {
+    async function hydrateSession() {
+      const storedToken = localStorage.getItem('token');
+
+      if (!storedToken) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const data = await fetchCurrentUser();
+        setUser(data.user);
+        setToken(storedToken);
+      } catch (err) {
+        // Token expired or invalid - clear it out
+        localStorage.removeItem('token');
+        setToken(null);
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    hydrateSession();
+  }, []);
+
+  function login(newToken, userData) {
+    localStorage.setItem('token', newToken);
+    setToken(newToken);
+    setUser(userData);
+  }
+
+  function logout() {
+    localStorage.removeItem('token');
+    setToken(null);
+    setUser(null);
+  }
+
+  const value = { user, token, loading, login, logout };
 
   return (
     <AuthContext.Provider value={value}>
@@ -19,8 +61,6 @@ export function AuthProvider({ children }) {
   );
 }
 
-// Custom hook so components do useAuth() instead of
-// useContext(AuthContext) everywhere - slightly cleaner call sites.
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {
