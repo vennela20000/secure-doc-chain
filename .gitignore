@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Environment variables (secrets)
+.env
+.env.local
+*.env
+!.env.example
+
+# Build outputs
+frontend/dist/
+backend/dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Blockchain sensitive material
+blockchain/network/organizations/
+blockchain/network/*/crypto-config/
+**/wallet/
+**/*.pem
+**/*.key
+**/*private*
+
+# Uploaded/test files (never commit real or demo documents)
+backend/uploads/
+storage/uploads/
+
+# Database dumps
+*.sql.bak
