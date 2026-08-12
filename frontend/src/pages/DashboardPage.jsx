@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { fetchDocuments } from '../api/documentApi';
 import DocumentList from '../components/DocumentList';
-import UploadForm from '../components/uploadForm';
+import UploadForm from '../components/UploadForm';
 
 const UPLOAD_ROLES = ['admin', 'engineer'];
 
