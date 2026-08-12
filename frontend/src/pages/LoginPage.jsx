@@ -32,49 +32,84 @@ function LoginPage() {
   }
 
   return (
-    <div style={{ maxWidth: '360px', margin: '80px auto', padding: '24px' }}>
-      <h1>SecureDocChain</h1>
-      <h2>Log in</h2>
+  <div className="auth-page">
+    <div className="auth-brand">
+      <div className="brand-logo">
+        Secure<span>Doc</span>Chain
+      </div>
 
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '12px' }}>
-          <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            style={{ width: '100%', padding: '8px', marginTop: '4px' }}
-          />
-        </div>
+      <div className="brand-content">
+        <h2>
+          Secure documents.
+          <br />
+          <span>Trusted records.</span>
+        </h2>
 
-        <div style={{ marginBottom: '12px' }}>
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={{ width: '100%', padding: '8px', marginTop: '4px' }}
-          />
-        </div>
+        <p>
+          A secure document version-control and audit platform
+          designed for traceability, integrity, and controlled access.
+        </p>
+      </div>
 
-        {error && (
-          <p style={{ color: 'red', marginBottom: '12px' }}>{error}</p>
-        )}
-
-        <button type="submit" disabled={isSubmitting} style={{ padding: '8px 16px' }}>
-          {isSubmitting ? 'Logging in...' : 'Log in'}
-        </button>
-      </form>
-
-      <p style={{ marginTop: '16px' }}>
-        Don't have an account? <Link to="/register">Register</Link>
-      </p>
+      <div className="security-points">
+        <div className="security-point">JWT Authentication</div>
+        <div className="security-point">Role-Based Access</div>
+        <div className="security-point">Document Integrity</div>
+      </div>
     </div>
-  );
+
+    <div className="auth-form-side">
+      <div className="auth-card">
+        <div className="auth-card-header">
+          <h1>Welcome back</h1>
+          <p>Sign in to access your SecureDocChain workspace.</p>
+        </div>
+
+        <form className="auth-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="username">Username</label>
+            <input
+              className="form-input"
+              id="username"
+              type="text"
+              placeholder="Enter your username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              className="form-input"
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          {error && <div className="error-message">{error}</div>}
+
+          <button
+            className="primary-button"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Signing in...' : 'Sign in'}
+          </button>
+        </form>
+
+        <div className="auth-footer">
+          Don't have an account? <Link to="/register">Create an account</Link>
+        </div>
+      </div>
+    </div>
+  </div>
+);
 }
 
 export default LoginPage;

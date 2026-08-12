@@ -33,78 +33,117 @@ function RegisterPage() {
   }
 
   return (
-    <div style={{ maxWidth: '360px', margin: '80px auto', padding: '24px' }}>
-      <h1>SecureDocChain</h1>
-      <h2>Register</h2>
+  <div className="auth-page">
+    <div className="auth-brand">
+      <div className="brand-logo">
+        Secure<span>Doc</span>Chain
+      </div>
 
-      {success ? (
-        <p style={{ color: 'green' }}>Account created! Redirecting to login...</p>
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: '12px' }}>
-            <label htmlFor="fullName">Full name</label>
-            <input
-              id="fullName"
-              type="text"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              required
-              style={{ width: '100%', padding: '8px', marginTop: '4px' }}
-            />
-          </div>
+      <div className="brand-content">
+        <h2>
+          Build a safer
+          <br />
+          <span>document trail.</span>
+        </h2>
 
-          <div style={{ marginBottom: '12px' }}>
-            <label htmlFor="username">Username</label>
-            <input
-              id="username"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              style={{ width: '100%', padding: '8px', marginTop: '4px' }}
-            />
-          </div>
+        <p>
+          Manage documents, control access, and maintain
+          tamper-evident records across every version.
+        </p>
+      </div>
 
-          <div style={{ marginBottom: '12px' }}>
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              style={{ width: '100%', padding: '8px', marginTop: '4px' }}
-            />
-          </div>
-
-          <div style={{ marginBottom: '12px' }}>
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={8}
-              style={{ width: '100%', padding: '8px', marginTop: '4px' }}
-            />
-          </div>
-
-          {error && (
-            <p style={{ color: 'red', marginBottom: '12px' }}>{error}</p>
-          )}
-
-          <button type="submit" disabled={isSubmitting} style={{ padding: '8px 16px' }}>
-            {isSubmitting ? 'Creating account...' : 'Register'}
-          </button>
-        </form>
-      )}
-
-      <p style={{ marginTop: '16px' }}>
-        Already have an account? <Link to="/login">Log in</Link>
-      </p>
+      <div className="security-points">
+        <div className="security-point">Encrypted Storage</div>
+        <div className="security-point">Audit Ready</div>
+        <div className="security-point">Version Tracking</div>
+      </div>
     </div>
-  );
+
+    <div className="auth-form-side">
+      <div className="auth-card">
+        <div className="auth-card-header">
+          <h1>Create account</h1>
+          <p>Set up your SecureDocChain account.</p>
+        </div>
+
+        {success ? (
+          <div className="success-message">
+            Account created successfully! Redirecting to login...
+          </div>
+        ) : (
+          <form className="auth-form" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="fullName">Full name</label>
+              <input
+                className="form-input"
+                id="fullName"
+                type="text"
+                placeholder="Enter your full name"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="username">Username</label>
+              <input
+                className="form-input"
+                id="username"
+                type="text"
+                placeholder="Choose a username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                className="form-input"
+                id="email"
+                type="email"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                className="form-input"
+                id="password"
+                type="password"
+                placeholder="Minimum 8 characters"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                minLength={8}
+              />
+            </div>
+
+            {error && <div className="error-message">{error}</div>}
+
+            <button
+              className="primary-button"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Creating account...' : 'Create account'}
+            </button>
+          </form>
+        )}
+
+        <div className="auth-footer">
+          Already have an account? <Link to="/login">Sign in</Link>
+        </div>
+      </div>
+    </div>
+  </div>
+);
 }
 
 export default RegisterPage;

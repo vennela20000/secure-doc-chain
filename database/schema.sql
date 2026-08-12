@@ -26,3 +26,21 @@ CREATE TABLE users (
 );
 
 CREATE INDEX idx_users_role_id ON users(role_id);
+-- ============================================
+-- PHASE 8: Documents
+-- ============================================
+
+CREATE TABLE documents (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    description TEXT,
+    file_name VARCHAR(255) NOT NULL,
+    file_path VARCHAR(500) NOT NULL,
+    file_size INTEGER NOT NULL,
+    mime_type VARCHAR(100) NOT NULL,
+    uploaded_by INTEGER NOT NULL REFERENCES users(id),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX idx_documents_uploaded_by ON documents(uploaded_by);

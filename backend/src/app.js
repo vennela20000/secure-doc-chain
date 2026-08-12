@@ -7,6 +7,7 @@ const healthRoutes = require('./routes/healthRoutes');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const documentRoutes = require('./routes/documentRoutes');
 const app = express();
 
 // Middleware: parse incoming JSON request bodies automatically
@@ -22,6 +23,7 @@ app.use('/health', healthRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/documents',documentRoutes);
 
 // Fallback for unknown routes
 app.use((req, res) => {

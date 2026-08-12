@@ -4,9 +4,7 @@ import axios from 'axios';
 // so every API call in the app uses this instead of hardcoding the URL.
 const axiosClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  headers: {
-    'Content-Type': 'application/json'
-  }
+  
 });
 
 // Runs before every request. If we have a token in localStorage,
