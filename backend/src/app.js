@@ -6,6 +6,7 @@ require('dotenv').config();
 const healthRoutes = require('./routes/healthRoutes');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 const app = express();
 
 // Middleware: parse incoming JSON request bodies automatically
@@ -20,6 +21,7 @@ app.use(cors());
 app.use('/health', healthRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Fallback for unknown routes
 app.use((req, res) => {
