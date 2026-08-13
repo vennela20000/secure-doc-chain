@@ -40,3 +40,5 @@ storage/uploads/
 
 # Database dumps
 *.sql.bak
+.vercel
+.env*
